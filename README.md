@@ -25,6 +25,14 @@ GitHub actions reside in a YAML file places within a
 `.github/workflows` directory in your repository. Let's go for our
 first one:
 
+<script src="https://gist.github.com/JJ/39fa1e49b28e962ae1914514feada12a.js"></script>
 
+This script is as simple as it gets. It contains a single job, with a
+single step. Let's go little by little:
 
-
+* We give it a name, "Merry Christmas". That name will show up in your
+  list of actions
+* `on` is the list of events that will trigger this action. We will
+  just list a single event.
+* `jobs` is an array that will include the list of jobs that will be
+  run sequentially.

@@ -1,0 +1,9 @@
+name: "Merry Christmas"
+on: [push]
+
+jobs:
+  seasonal_greetings:
+    runs_on: ubuntu-latest
+    steps:
+      - name: Merry Xmas!
+        run: echo Merry Xmas!

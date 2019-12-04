@@ -116,5 +116,78 @@ If you are a longterm Perl use like I am, you will miss that. Ruby,
 Python, Node, popular languages, fair enough. But Perl is in the base
 Ubuntu 16.04 install. Even if we can use that environment, it seems to
 have been eliminated from there. Where do we have to go to use Perl?
-To the Windows environments.
+To the Windows environments. Let's use it to create a polite bot that
+greets you when you create or edit an issue:
 
+```yaml
+name: "We 🎔 Perl"
+on:
+  issues:
+    types: [opened, edited, milestoned]
+
+jobs:
+  seasonal_greetings:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2-beta
+      - name: Maybe greet
+        id: maybe-greet
+        env:
+          HEY: "Hey you!"
+          GREETING: "Merry Xmas to you too!"
+          BODY: ${{ github.event.issue.body }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          $output=(perl utils/printenv.pl)
+          $body= @{ 'body'= $output } | ConvertTo-Json
+          $header= @{
+              'Authorization'="token $ENV:TOKEN"
+          }
+          Invoke-RestMethod -Uri "https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments" -Method 'Post' -Body $body -Headers $header
+```
+
+Check out first the `on` command, that is set to be fired every time
+an issue is created, edited or assigned a milestone, an action that,
+for some reason, is called being *milestoned*.
+
+
+![This lawn has been milestoned](https://rakuadventcalendar.wordpress.com/)
+
+The main difference you see above is the presence of the
+`windows-latest` as the environment this action will be run on. But
+next we see another nice things of actions: they can be simply
+published in GitHub, and can be reused. This `checkout` action does
+what it says: checks out the repo code, which is not available by
+default. We are not really going to run any check on the code, but we
+need the little Perl script we've created. More on this later.
+
+The next step is the one that actually will operate when an issue is
+created, changed or, wait for it, milestoned. We declare two different
+environment variables: one will be used to comment on issues that
+don't mention "Merry", the other if they do. But the nice thing comes
+next: we can work with the issue body, which is available as a
+*context* variable: `github.event.issue.body`. The next variable is
+the magic key that opens the door to the GitHub API. No need to upload
+it or anything, it will be there ready for you, and GitHub will keep
+track of it and hide it wherever it appears. We will also need the
+issue number to comment on it, and we store it in the `$ISSUE`
+variable. 
+
+Let's next run the action. We will use the fantastic Perl regexes to
+check for the presence of the word Merry in the body, using this
+mini-script:
+
+```perl
+print( ( ($ENV{BODY} =~ /Merry/) == 1)? $ENV{GREETING} : $ENV{HEY});
+```
+
+> The next few PowerShell commands are, by far, the most difficult part
+of this article.
+
+We run the script so that we capture, and store, the result in a
+variable. And the next commands create PowerShell hashes, and `$body`
+is converted to JSON. By using `Invoke-RestMethod` we use GitHub API
+to create a comment with the greetings in the issue that was
+milestoned or any or the other stuff.

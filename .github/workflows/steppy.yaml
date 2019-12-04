@@ -9,7 +9,9 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: echo '::set-env name=SENTENCE::`echo $greeting $season!`'
+        run: |
+          sentence="$greeting $season!"
+          echo ::set-env name=SENTENCE::$sentence
       - name: Greet
         id: greet
         run: echo '::set-output name=printd::`python -c "import os; print(os.environ.keys)"`'

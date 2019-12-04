@@ -1,0 +1,12 @@
+name: "We 🎔 Perl"
+on: [push]
+
+jobs:
+  seasonal_greetings:
+    runs-on: windows-latest
+    steps:
+      - name: Merry Xmas!
+        env:
+          greeting: "Merry"
+          season: "Xmas"
+        run: perl -e "say $ENV{'greeting'}.' '.$ENV{'season'}.'!';"

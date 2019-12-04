@@ -13,10 +13,11 @@ jobs:
       - name: Greet
         id: greet
         run: python -c "import os; print(os.environ.keys)"
-      - name: Got
+      - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
+      - name: Run Ruby
         env:
           OUTPUT: ${{ steps.greet.outputs }}
         run: ruby -e "puts ENV['OUTPUT']"

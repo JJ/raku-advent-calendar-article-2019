@@ -20,11 +20,9 @@ jobs:
         run: |
           $output=(perl utils/printenv.pl)
           $body= @{ 'body'= $output } | ConvertTo-Json
-          Write-Output $body
           $header= @{
               'Authorization'="token $ENV:TOKEN"
           }
-          Write-Output $header
           Invoke-RestMethod -Uri "https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments" -Method 'Post' -Body $body -Headers $header
 
 

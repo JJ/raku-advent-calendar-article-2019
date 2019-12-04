@@ -22,6 +22,6 @@ jobs:
     steps:
       - name: Dump job context
         env:
-          JOB_CONTEXT: ${{ toJson(jobs.maybe-greet.steps) }}
+          JOB_CONTEXT: ${{ jobs.maybe-greet.steps.id }}
         run: echo "$JOB_CONTEXT"
 

@@ -6,10 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pre-Merry Xmas!
-        id: pre
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: export $SENTENCE="$greeting $season!"
+        run: export SENTENCE="$greeting $season!"
       - name: Greet
+        id: greet
         run: python -c "import os; print(os.environ['SENTENCE'])"
+      - name: Got
+        env:
+          OUTPUT: ${{ steps.greet.outputs }}
+        run: ruby -e "puts ENV['OUTPUT']"

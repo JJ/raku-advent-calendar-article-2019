@@ -9,4 +9,6 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: perl -e 'print "$ENV{greeting} $ENV{season}!\n";'
+        run: |
+          $ENV:GREET= $ENV:greeting + " " + $ENV:season + "!"
+          perl -e 'print $ENV{GREET};'

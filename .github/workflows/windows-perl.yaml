@@ -19,14 +19,12 @@ jobs:
           ISSUE: ${{ github.event.issue.number }}
         run: |
           $output=(perl utils/printenv.pl)
-          Write-Output $output
-          $body= @{ "body"=$output }
+          $body= @{ 'body'= $output }
           Write-Output $body
           $header= @{
-              "Authorization"="token $ENV:TOKEN"
-              "Content-Type"="application/json"
+              'Authorization'="token $ENV:TOKEN"
           }
           Write-Output $header
-          Invoke-RestMethod -Uri "https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments" -Method 'Post' -Body $body -Headers $header
+          Invoke-RestMethod -Uri "https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments" -Method 'Post' -Body ConvertTo-Json $body -Headers $header
 
 

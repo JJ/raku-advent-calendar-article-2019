@@ -7,6 +7,8 @@ jobs:
   seasonal_greetings:
     runs-on: windows-latest
     steps:
+      - name: Checkout
+        use: actions/checkout@v2-beta
       - name: Maybe greet
         id: maybe-greet
         env:
@@ -16,9 +18,8 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN}}
           ISSUE: ${{ github.event.issue.number }}
         run: |
-          $output=(perl -e 'print((($ENV{BODY} =~ /Merry/) == 1)?$ENV{GREETING}:$ENV{HEY});')
-          $data="{`"body`": `"$output`"}"
-          Write-Output $data
-          curl --% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $data
+          $output=(perl utils/printenv.pl)
+          Write-Output $output
+          curl --% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $output
 
 

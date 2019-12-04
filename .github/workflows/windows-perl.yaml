@@ -19,10 +19,15 @@ jobs:
   produce_comment:
     name: Respond to issue
     runs-on: ubuntu-latest
+    
     steps:
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
       - name: Greet
         uses: actions/github@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: comment "Hello World"
+          args: comment ${{ jobs.seasonal_greetings.

@@ -13,13 +13,10 @@ jobs:
           HEY: "Hey you!"
           GREETING: "Merry Xmas to you too!"
           BODY: ${{ github.event.issue.body }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          ISSUE: ${{ github.event.issue.id }}
         run: |
           $output=(perl -e 'print ($ENV{BODY} =~ /Merry/)?$ENV{GREETING}:$ENV{HEY};')
-          Write-Output "::set-env name=GREET::$output"
-  produce_comment:
-    name: Respond to issue
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump job context
-        run: echo $GREET
+          curl -H "Authorization: token $ENV:TOKEN" -X POST https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data '{"body": "output"}'
+
 

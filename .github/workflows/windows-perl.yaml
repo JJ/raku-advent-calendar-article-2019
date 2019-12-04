@@ -7,11 +7,12 @@ jobs:
   seasonal_greetings:
     runs-on: windows-latest
     steps:
-      - name: Merry Xmas!
+      - name: Maybe greet
+        id:maybe-greet
         env:
-          greeting: "Merry"
-          season: "Xmas"
-          what: ${{ github.event.issue.number }}
+          HEY: "Hey you!"
+          GREETING: "Merry Xmas to you too!"
+          BODY: ${{ github.event.issue.body }}
         run: |
-          $ENV:GREET= $ENV:greeting + " " + $ENV:season + " → " + $ENV:what
-          perl -e 'print $ENV{GREET};'
+          $output=(perl -e 'print $ENV{BODY} ~= /Merry/?$ENV{GREETING}:$ENV{HEY};')
+          Write-Output "::set-output name=GREET::$output"

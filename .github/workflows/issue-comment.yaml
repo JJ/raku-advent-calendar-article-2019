@@ -21,7 +21,10 @@ jobs:
           cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
-          zef upgrade zef
+          git clone https://github.com/ugexe/zef.git
+          cd zef
+          perl6 -I. bin/zef install .
+          zef update
           zef install Cro::HTTP::Client
           perl6 utils\respond-comment.p6
 

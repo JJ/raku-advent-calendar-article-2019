@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        use: actions/checkout@v2-beta
+        uses: actions/checkout@v2-beta
       - name: Maybe greet
         id: maybe-greet
         env:

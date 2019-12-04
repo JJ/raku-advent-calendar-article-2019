@@ -9,11 +9,11 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: echo '::set-env name=SENTENCE::"$greeting $season!"'
+        run: echo '::set-env name=SENTENCE::`echo $greeting $season!`'
       - name: Greet
         id: greet
         run: echo '::set-output name=printd::`python -c "import os; print(os.environ.keys)"`'
       - name: Run Ruby
         env:
-          OUTPUT: ${{ steps.greet.outputs }}
+          OUTPUT: ${{ steps.greet.outputs.printd }}
         run: /opt/hostedtoolcache/Ruby/2.6.3/x64/bin/ruby -e "puts ENV['OUTPUT']"

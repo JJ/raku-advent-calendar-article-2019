@@ -191,3 +191,19 @@ variable. And the next commands create PowerShell hashes, and `$body`
 is converted to JSON. By using `Invoke-RestMethod` we use GitHub API
 to create a comment with the greetings in the issue that was
 milestoned or any or the other stuff.
+
+![Issue commented and milestoned](img/issue-action.png)
+
+As the image above shows, couple of comments: one when it was created
+and the other, well, check the image.
+
+However, last time we checked this was a **Raku** Advent Calendar,
+right? We want our Raku!
+
+## Using Raku in GitHub actions
+
+Last time I checked, Raku was not among the very limited number of
+languages that are available in any of the environments. However, that
+does not mean we cannot use it. Actions can be upgraded with anything
+that can be installed, in the case of Windows using Chocolatey (or
+downloading it via `curl` or any other command).

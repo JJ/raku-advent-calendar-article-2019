@@ -14,6 +14,7 @@ jobs:
         id: greet
         run: python -c "import os; print(os.environ.keys)"
       - name: Got
+        uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
         env:

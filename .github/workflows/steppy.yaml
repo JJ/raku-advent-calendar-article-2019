@@ -12,7 +12,7 @@ jobs:
         run: export SENTENCE="$greeting $season!"
       - name: Greet
         id: greet
-        run: python -c "import os; print(os.environ['SENTENCE'])"
+        run: python -c "import os; print(os.environ.keys)"
       - name: Got
         env:
           OUTPUT: ${{ steps.greet.outputs }}

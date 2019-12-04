@@ -1,5 +1,7 @@
 name: "We 🎔 Perl"
-on: [push]
+on:
+  issues:
+    types: [opened, edited, milestoned]
 
 jobs:
   seasonal_greetings:
@@ -9,6 +11,7 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
+          what: ${{github.event}}
         run: |
-          $ENV:GREET= $ENV:greeting + " " + $ENV:season + "!"
+          $ENV:GREET= $ENV:greeting + " " + $ENV:season + " → " + $ENV:what
           perl -e 'print $ENV{GREET};'

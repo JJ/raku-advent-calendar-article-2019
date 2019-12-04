@@ -20,6 +20,6 @@ jobs:
           $data="{`"body`": `"$output`"}"
           Write-Output $data
           $data | out-file -filepath "data.json"
-          curl -v -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN" -X POST https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data @data.json
+          curl -v--% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data @data.json
 
 

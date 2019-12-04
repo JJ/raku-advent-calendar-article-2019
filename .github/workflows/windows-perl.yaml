@@ -15,13 +15,11 @@ jobs:
           BODY: ${{ github.event.issue.body }}
         run: |
           $output=(perl -e 'print ($ENV{BODY} =~ /Merry/)?$ENV{GREETING}:$ENV{HEY};')
-          Write-Output "::set-output name=GREET::$output"
+          Write-Output "::set-env name=GREET::$output"
   produce_comment:
     name: Respond to issue
     runs-on: ubuntu-latest
     steps:
       - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ jobs.maybe-greet.steps.id }}
-        run: echo "$JOB_CONTEXT"
+        run: echo $GREET
 

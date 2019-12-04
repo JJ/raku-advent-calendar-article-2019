@@ -20,6 +20,6 @@ jobs:
         run: |
           $output=(perl utils/printenv.pl)
           Write-Output $output
-          curl --% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $output
+          curl -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $output
 
 

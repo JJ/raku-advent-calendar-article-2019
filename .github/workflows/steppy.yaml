@@ -1,4 +1,4 @@
-name: "Merry Christmas"
+name: "One step up"
 on: [push]
 
 jobs:
@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Pre-Merry Xmas!
         id: pre
-        with:
+        env:
           greeting: "Merry"
           season: "Xmas"
-        run: echo ${greeting} ${season}!
+        run: echo $greeting $season !

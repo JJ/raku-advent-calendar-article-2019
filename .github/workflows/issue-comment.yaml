@@ -1,0 +1,26 @@
+name: "We 🎔 Raku"
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  seasonal_greetings:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2-beta
+      - name: Maybe greet
+        id: maybe-greet
+        env:
+          HEY: "Hey you!"
+          GREETING: "Merry Xmas to you too!"
+          BODY: ${{ github.event.issue.body }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          cinst rakudostar
+          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
+          refreshenv
+          zef install WWW
+          perl6 utils\respond-comment.p6
+

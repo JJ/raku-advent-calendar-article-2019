@@ -14,5 +14,5 @@ jobs:
           GREETING: "Merry Xmas to you too!"
           BODY: ${{ github.event.issue.body }}
         run: |
-          $output=(perl -e 'print $ENV{BODY} ~= /Merry/?$ENV{GREETING}:$ENV{HEY};')
+          $output=(perl -e 'print ($ENV{BODY} ~= /Merry/)?$ENV{GREETING}:$ENV{HEY};')
           Write-Output "::set-output name=GREET::$output"

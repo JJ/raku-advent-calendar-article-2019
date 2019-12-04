@@ -9,11 +9,13 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: export SENTENCE="$greeting $season!"
+        run: SENTENCE="$greeting $season!"
       - name: Greet
         id: greet
         run: python -c "import os; print(os.environ.keys)"
       - name: Got
+        with:
+          ruby-version: '2.x'
         env:
           OUTPUT: ${{ steps.greet.outputs }}
         run: ruby -e "puts ENV['OUTPUT']"

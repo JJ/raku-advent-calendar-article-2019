@@ -20,6 +20,13 @@ jobs:
         run: |
           $output=(perl utils/printenv.pl)
           Write-Output $output
-          curl https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments -H "Authorization: token $ENV:TOKEN"  -H "Content-Type: application/json" --data $output
+          $body= @{ "body"=$output }
+          Write-Output $body
+          $header= @{
+              "Authorization"="Authorization: token $ENV:TOKEN"
+              "Content-Type"="application/json"
+          }
+          Write-Output $header
+          Invoke-RestMethod -Uri "https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments" -Method 'Post' -Body $body -Headers $header
 
 

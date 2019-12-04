@@ -36,3 +36,21 @@ single step. Let's go little by little:
   just list a single event.
 * `jobs` is an array that will include the list of jobs that will be
   run sequentially.
+* Every job will have its own key in the, which will be used to refer
+  to it (and also to store variables, more on this later), and can run
+  in its own environment, which you have to select. We'll take
+  [`ubuntu-latest`](https://help.github.com/es/actions/automating-your-workflow-with-github-actions/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources),
+  which is a Bionic box, but there are other to choose from (more on
+  this later). 
+* A job has a series of *steps*, every one with a `name` and then a
+  sequence of commands. `run` will run on whatever environment is
+  defined in that specific step; in this case, a simple shell script
+  that prints `Merry Xmas!`
+  
+Since we've instructed via the `on` command to run every time there's
+a `push` to the repository, the tab Actions will show [the result of
+running it, just like this](https://github.com/JJ/raku-advent-calendar-article-2019/commit/1cbe9578458dcd7b425e94a58998c53a1af49fe9/checks?check_suite_id=340377462). If
+nothing goes wrong, and how could it, since it's simply a script, it
+will show green check marks and produce the result:
+
+![Merry Xmas from a GitHub Action](img/hello-action.png)

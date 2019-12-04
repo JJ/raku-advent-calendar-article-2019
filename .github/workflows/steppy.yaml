@@ -1,0 +1,13 @@
+name: "Merry Christmas"
+on: [push]
+
+jobs:
+  seasonal_greetings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre-Merry Xmas!
+        id: pre
+        with:
+          greeting: "Merry"
+          season: "Xmas"
+        run: echo ${greeting} ${season}!

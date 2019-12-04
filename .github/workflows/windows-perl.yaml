@@ -23,7 +23,7 @@ jobs:
           $body= @{ "body"=$output }
           Write-Output $body
           $header= @{
-              "Authorization"="Authorization: token $ENV:TOKEN"
+              "Authorization"="token $ENV:TOKEN"
               "Content-Type"="application/json"
           }
           Write-Output $header

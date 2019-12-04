@@ -14,7 +14,9 @@ jobs:
           echo ::set-env name=SENTENCE::$sentence
       - name: Greet
         id: greet
-        run: echo '::set-output name=printd::`python -c "import os; print(os.environ.keys)"`'
+        run: |
+          output=$(python -c "import os; print(os.environ['SENTENCE'])")
+          echo ::set-output name=printd::$output
       - name: Run Ruby
         env:
           OUTPUT: ${{ steps.greet.outputs.printd }}

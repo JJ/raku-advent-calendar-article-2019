@@ -19,6 +19,6 @@ jobs:
           $output=(perl -e 'print((($ENV{BODY} =~ /Merry/) == 1)?$ENV{GREETING}:$ENV{HEY});')
           $data="{`"body`": `"$output`"}"
           Write-Output $data
-          curl -v--% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $data
+          curl --% -H "Content-Type: application/json" -H "Authorization: token $ENV:TOKEN"  https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data $data
 
 

@@ -10,4 +10,6 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: echo $greeting $season !
+        run: export $SENTENCE="$greeting $season!"
+      - name: Greet
+        run: python -c "import os; print(os.environ['SENTENCE'])"

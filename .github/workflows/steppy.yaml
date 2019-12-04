@@ -9,10 +9,10 @@ jobs:
         env:
           greeting: "Merry"
           season: "Xmas"
-        run: export SENTENCE="$greeting $season!"
+        run: ::set-env name=SENTENCE::"$greeting $season!"
       - name: Greet
         id: greet
-        run: python -c "import os; print(os.environ.keys)"
+        run: ::set-output name=printd::`python -c "import os; print(os.environ.keys)"`
       - name: Run Ruby
         env:
           OUTPUT: ${{ steps.greet.outputs }}

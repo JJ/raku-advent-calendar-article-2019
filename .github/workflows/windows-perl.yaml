@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Maybe greet
-        id:maybe-greet
+        id: maybe-greet
         env:
           HEY: "Hey you!"
           GREETING: "Merry Xmas to you too!"

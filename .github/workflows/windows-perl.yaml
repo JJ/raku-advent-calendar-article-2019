@@ -18,6 +18,6 @@ jobs:
         run: |
           $output=(perl -e 'print ($ENV{BODY} =~ /Merry/)?$ENV{GREETING}:$ENV{HEY};')
           Write-Output  "{`"body`": `"$output`"}"
-          curl -H "Authorization: token $ENV:TOKEN" -X POST https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data "{`"body`": `"$output`"}"
+          curl -H "Authorization: token $ENV:TOKEN" -X POST https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --data "{`"body`": `"→ $output`"}"
 
 

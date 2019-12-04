@@ -20,8 +20,7 @@ jobs:
         run: |
           $output=(perl utils/printenv.pl)
           $auth="Authorization: token $ENV:TOKEN"
-          $url="https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments"
           Write-Output $output
-          curl --% -H "Content-Type: application/json" -H $auth $url --data $output
+          curl https://api.github.com/repos/JJ/raku-advent-calendar-article-2019/issues/$ENV:ISSUE/comments --% -H "Content-Type: application/json" -H $auth   --data $output
 
 

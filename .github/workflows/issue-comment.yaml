@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2-beta
         with:
           repository: 'ugexe/zef'
+      - name: Updates
         run: |
           perl6 -I. bin/zef install .
           zef update

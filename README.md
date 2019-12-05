@@ -229,7 +229,7 @@ jobs:
           zef test .
 ```
 
-Which is testing using this:
+Which is testing using this script:
 
 ```
 #!/usr/bin/env perl6
@@ -277,4 +277,78 @@ the other is `docker`, which is Linux exclusive.
 
 These containers will be built on the run and then executed, with
 commands executed directly inside the container. By default, the
-`ENTRYPOINT` of the container will be run, as usual.
+`ENTRYPOINT` of the container will be run, as usual. Previously, we
+have used `actions/checkout` for checking out the repository; these
+*official* actions can be complemented with our own; in this case, we
+will use the [Raku container
+action](https://github.com/JJ/raku-container-action) which you can
+also check out [in the Actions
+markecplace](https://github.com/marketplace/actions/raku-container-action). 
+
+This action basically contains a Dockerfile, this one:
+
+```
+FROM jjmerelo/alpine-perl6:latest
+LABEL version="4.0.2" maintainer="JJ Merelo <jjmerelo@GMail.com>"
+
+# Set up dirs
+
+ENV PATH="/root/.rakudobrew/versions/moar-2019.11/install/bin:/root/.rakudobrew/versions/moar-2019.11/install/share/perl6/site/bin:/root/.rakudobrew/bin:${PATH}"
+RUN mkdir /test
+VOLUME /test
+WORKDIR /test
+
+
+# Will run this
+ENTRYPOINT raku -v && zef install --deps-only . && zef test .
+```
+
+This Dockerfile does little more than establish the system `PATH` and
+an entrypoint that can be used for testing. It does not have anything
+that is Action-specific.
+
+> It uses the very basic [Alpine Raku](https://hub.docker.com/r/jjmerelo/alpine-perl6/) container,
+> which is the basis for a whole series of Raku testing containers.
+
+But again, let's go back to where the action is, that is, er, the
+action.
+
+```yaml
+name: "We 🎔 Ubuntu, Docker and Raku"
+on: [push, pull_request]
+
+jobs:
+  adventest:
+    runs-on: ubuntu-latest
+    name: AdvenTest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Runs tests
+      uses: JJ/raku-container-action@master
+```
+
+Sweet and simple, right? 
+
+> Yes, I couldn't help but call the test for the Advent Calendar
+> AdvenTest. 
+
+It checks out the repository using the official checkouting action,
+and then runs the test, which is the default command in the Dockerfile
+that is created in that action. It would also install ecosystem
+dependencies, if there were any.
+
+How long does this one take? Just short of 30 seconds, or one quarter
+of what the other one took.
+
+## Tell me more!
+
+GitHub actions are a world of possibilities (and ocassionally, also a
+world of pain). Containerized tools mean that you will be able to work
+on the repository and the world at large using your favorite language,
+that is, Raku, starting actions from any kind of events, interactive
+or periodical; for instance, you could schedule tests every week, ora
+start deployments when tests have been cleared. 
+
+If you liked CI tools
+such as Travis or CircleCI, you will love GitHub actions.

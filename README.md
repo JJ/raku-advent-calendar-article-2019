@@ -269,7 +269,9 @@ single time, plus it does not work if you need to install any
 additional module. Fortunately, there are many more ways to do
 it. Meet the Raku container.
 
-## Using dockerized actions.
+## Using dockerized actions
 
-
+GitHub actions can be created in two different environments. One of
+them is called `node12`, and can actually run any operating system,
+the other is `docker`, which is Linux exclusive.
 

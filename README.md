@@ -206,4 +206,70 @@ Last time I checked, Raku was not among the very limited number of
 languages that are available in any of the environments. However, that
 does not mean we cannot use it. Actions can be upgraded with anything
 that can be installed, in the case of Windows using Chocolatey (or
-downloading it via `curl` or any other command).
+downloading it via `curl` or any other command). We'll also use it to
+run a real test. Dummy, but real. All actions actually either succeed
+or fail; you can use that for carrying out tests. Check out this
+action:
+
+```
+name: "We 🎔 Raku"
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2-beta
+      - name: Install and update
+        run: |
+          cinst rakudostar
+          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
+          refreshenv
+          zef test .
+```
+
+Which is testing using this:
+
+```
+#!/usr/bin/env perl6
+
+use v6;
+use Test;
+
+constant $greeting = "Merry Xmas!";
+constant $non-greeting = "Hey!";
+is( greet( "Hey", $greeting, $non-greeting), $non-greeting, "Non-seasonal salutation OK");
+is( greet( "Merry Xmas!", $greeting, $non-greeting), $greeting, "Seasonal salutation OK");
+done-testing;
+
+sub greet( $body, $greeting, $non-greeting ) {
+    ($body ~~ /M|m "erry"/)??$greeting!!$non-greeting;
+}
+```
+
+The [regex](https://docs.raku.org/type/Regex) here uses the Raku
+syntax to perform more or less the same thing that the previous Perl
+script did, but let's focus on the action above. It runs three
+PowerShell commands, one of them using Chocolatey to install [Rakudo
+Star](https://rakudo.org/files/star), and then set the command path
+and refresh it so that it can be used in the last command, the usual
+`zef test .` that actually runs the tests.
+
+> Rakudo Star has not been updated since March; a new update is coming
+> very soon, but meanwhile, the combination Windows/GitHub
+> Actions/Rakudo is not really the best way to go, since the bundled
+> `zef` version is broken and can't be updated from within a GitHub
+> action. 
+
+This
+[test](https://github.com/JJ/raku-advent-calendar-article-2019/commit/828099c1a661dfe6ddab83592ad992d2f4facd0b/checks?check_suite_id=343254130)
+takes quite a while; you have to download and install Raku every
+single time, plus it does not work if you need to install any
+additional module. Fortunately, there are many more ways to do
+it. Meet the Raku container.
+
+## Using dockerized actions.
+
+
+

@@ -275,3 +275,6 @@ GitHub actions can be created in two different environments. One of
 them is called `node12`, and can actually run any operating system,
 the other is `docker`, which is Linux exclusive.
 
+These containers will be built on the run and then executed, with
+commands executed directly inside the container. By default, the
+`ENTRYPOINT` of the container will be run, as usual.

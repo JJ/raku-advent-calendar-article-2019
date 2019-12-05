@@ -1,4 +1,5 @@
-on: [push]
+name: "We 🎔 Ubuntu, Docker and Raku"
+on: [push, pull_request]
 
 jobs:
   adventest:

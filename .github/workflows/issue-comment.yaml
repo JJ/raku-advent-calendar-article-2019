@@ -11,13 +11,13 @@ jobs:
         uses: actions/checkout@v2-beta
         with:
           repository: 'ugexe/zef'
-      - name: Updates
+      - name: Install and update
         run: |
           cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
           perl6 -I. bin/zef install .
-          zef update
+          zef update 
           zef upgrade
           zef install Cro::HTTP::Client
       - name: Checkout

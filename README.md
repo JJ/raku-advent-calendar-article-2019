@@ -21,7 +21,7 @@ some basic toolchains, as well as language interpreters and compilers of your
 choice. At the very basic level, what you have is a container where
 you can run a script triggered by an event.
 
-GitHub actions reside in a YAML file places within the
+GitHub actions reside in a YAML file placed in the
 `.github/workflows` directory in your repository. Let's go for our
 first one:
 

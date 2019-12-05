@@ -18,6 +18,8 @@ jobs:
           repository: 'ugexe/zef'
       - name: Updates
         run: |
+          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
+          refreshenv
           perl6 -I. bin/zef install .
           zef update
           zef upgrade

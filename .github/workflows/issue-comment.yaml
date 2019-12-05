@@ -12,7 +12,7 @@ jobs:
           cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
-          git clone https://github.com/ugexe/zef.git
+          git clone --verbose https://github.com/ugexe/zef.git
           cd zef
           perl6 -I. bin/zef install .
           cd ..

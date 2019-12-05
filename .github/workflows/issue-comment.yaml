@@ -7,6 +7,19 @@ jobs:
   seasonal_greetings:
     runs-on: windows-latest
     steps:
+      - name: Install Rakudo Star and zef
+        run: |
+          cinst rakudostar
+          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
+          refreshenv
+          git clone https://github.com/ugexe/zef.git
+          cd zef
+          perl6 -I. bin/zef install .
+          cd ..
+          Remove-Item -Recurse -Force some_dir
+          zef update
+          zef upgrade
+          zef install Cro::HTTP::Client
       - name: Checkout
         uses: actions/checkout@v2-beta
       - name: Maybe greet
@@ -18,13 +31,5 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN}}
           ISSUE: ${{ github.event.issue.number }}
         run: |
-          cinst rakudostar
-          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
-          refreshenv
-          git clone https://github.com/ugexe/zef.git
-          cd zef
-          perl6 -I. bin/zef install .
-          zef update
-          zef install Cro::HTTP::Client
           perl6 utils\respond-comment.p6
 

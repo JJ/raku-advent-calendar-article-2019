@@ -2,7 +2,7 @@
 
 After being in beta for quite a long time, GitHub actions were finally
 introduced to the general public in November 2019. They have very soon
-become ubiquituous, over all combined with the other release that
+become ubiquitous, over all combined with the other release that
 were recently made by GitHub, the package (and container) registry.
 
 We can put them to good use with our Raku modules. Well see how.
@@ -17,11 +17,11 @@ repository, but also all kinds of things happening in the repository,
 from changes in the wiki to adding a review to a pull request.
 
 And what kind of things can you do? GitHub creates a container with
-some basic toolchains, as well as language intepreters and compilers of your
+some basic toolchains, as well as language interpreters and compilers of your
 choice. At the very basic level, what you have is a container where
 you can run a script triggered by an event.
 
-GitHub actions reside in a YAML file places within a
+GitHub actions reside in a YAML file places within the
 `.github/workflows` directory in your repository. Let's go for our
 first one:
 
@@ -107,12 +107,12 @@ whose id is `greet` (which we declared via the `id` key there), and
 since we declared the output to be called `printd`, `outputs.printd`
 will retrieve the output by that name. Contexts are not available from
 within the action environment, which is why we need to assign it first
-to an environmen variable. Output will [look like
+to an environment variable. Output will [look like
 this](https://github.com/JJ/raku-advent-calendar-article-2019/commit/01da3afeb1a5258293e328a9985a088bc7aa60d0/checks?check_suite_id=341279210),
 and it will use green check marks, as well as reveal the output in the
 raw log and if you click on the step name.
 
-If you are a longterm Perl use like I am, you will miss that. Ruby,
+If you are a long-term Perl use like I am, you will miss that. Ruby,
 Python, Node, popular languages, fair enough. But Perl is in the base
 Ubuntu 16.04 install. Even if we can use that environment, it seems to
 have been eliminated from there. Where do we have to go to use Perl?
@@ -304,7 +304,7 @@ ENTRYPOINT raku -v && zef install --deps-only . && zef test .
 ```
 
 This Dockerfile does little more than establish the system `PATH` and
-an entrypoint that can be used for testing. It does not have anything
+an entry point that can be used for testing. It does not have anything
 that is Action-specific.
 
 > It uses the very basic [Alpine Raku](https://hub.docker.com/r/jjmerelo/alpine-perl6/) container,
@@ -343,12 +343,13 @@ of what the other one took.
 
 ## Tell me more!
 
-GitHub actions are a world of possibilities (and ocassionally, also a
+GitHub actions are a world of possibilities (and occasionally, also a
 world of pain). Containerized tools mean that you will be able to work
 on the repository and the world at large using your favorite language,
 that is, Raku, starting actions from any kind of events, interactive
-or periodical; for instance, you could schedule tests every week, ora
+or periodical; for instance, you could schedule tests every week, or
 start deployments when tests have been cleared. 
 
 If you liked CI tools
-such as Travis or CircleCI, you will love GitHub actions.
+such as Travis or CircleCI, you will love GitHub actions. Put them to
+good use in your Raku repositories.

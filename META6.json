@@ -1,0 +1,14 @@
+{
+    "authors" : [
+	"JJ Merelo"
+    ],
+    "description" : "Advent Calendar 2019",
+    "license" : "Artistic-2.0",
+    "name" : "Dummy tests",
+    "perl" : "6.d",
+    "provides" : { },
+    "tags" : [
+	"Advent","Windows","Github Actions"
+    ],
+    "version" : "0.0.1"
+}

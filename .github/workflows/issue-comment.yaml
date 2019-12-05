@@ -1,35 +1,16 @@
 name: "We 🎔 Raku"
-on:
-  issue_comment:
-    types: [created, edited]
+on: [push, pull_request]
 
 jobs:
-  seasonal_greetings:
+  test:
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2-beta
-        with:
-          repository: 'ugexe/zef'
       - name: Install and update
         run: |
           cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
-          perl6 -I. bin/zef install .
-          zef update 
-          zef upgrade
-          zef install Cro::HTTP::Client
-      - name: Checkout
-        uses: actions/checkout@v2-beta
-      - name: Maybe greet
-        id: maybe-greet
-        env:
-          HEY: "Hey you!"
-          GREETING: "Merry Xmas to you too!"
-          BODY: ${{ github.event.issue.body }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          ISSUE: ${{ github.event.issue.number }}
-        run: |
-          perl6 utils\respond-comment.p6
+          zef test .
 

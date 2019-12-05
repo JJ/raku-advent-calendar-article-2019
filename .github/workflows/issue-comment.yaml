@@ -7,17 +7,13 @@ jobs:
   seasonal_greetings:
     runs-on: windows-latest
     steps:
-      - name: Install Rakudo Star and zef
-        run: |
-          cinst rakudostar
-          $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
-          refreshenv
       - name: Checkout
         uses: actions/checkout@v2-beta
         with:
           repository: 'ugexe/zef'
       - name: Updates
         run: |
+          cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
           perl6 -I. bin/zef install .

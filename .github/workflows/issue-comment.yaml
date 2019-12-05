@@ -17,7 +17,7 @@ jobs:
           cd zef-master
           perl6 -I. bin/zef install .
           cd ..
-          Remove-Item -Recurse -Force some_dir
+          Remove-Item -Recurse -Force zef-master
           zef update
           zef upgrade
           zef install Cro::HTTP::Client

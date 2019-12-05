@@ -12,12 +12,12 @@ jobs:
           cinst rakudostar
           $env:Path = "C:\rakudo\bin;C:\rakudo\share\perl6\site\bin;$env:Path"
           refreshenv
-          curl https://github.com/ugexe/zef/archive/master.zip
-          unzip master.zip
-          cd zef-master
+      - name: Checkout
+        uses: actions/checkout@v2-beta
+        with:
+          repository: 'ugexe/zef'
+        run: |
           perl6 -I. bin/zef install .
-          cd ..
-          Remove-Item -Recurse -Force zef-master
           zef update
           zef upgrade
           zef install Cro::HTTP::Client
